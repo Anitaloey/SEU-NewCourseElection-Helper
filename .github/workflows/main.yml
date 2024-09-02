@@ -1,0 +1,26 @@
+name: Run Script
+
+on:
+  push:
+    branches:
+      - main  # 当 main 分支有代码推送时触发
+  workflow_dispatch:  # 手动触发工作流
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Run your script
+      env:
+        CLASS: ${{ secrets.CLASS }}
+        NAME: ${{ secrets.NAME }}
+        PASSWORD: ${{ secrets.PASSWORD }}
+        TURN: ${{ secrets.TURN }}
+      run: |
+        echo "Running script with secrets..."
+        # 在这里运行你的脚本
+        python your_script.py  # 如果是Python脚本，替换成相应的脚本文件名
